@@ -2,8 +2,8 @@
 tensorsim
 *********
 
-This is a simple tool for generating synthetic data of multidimensional
-diffusion MRI experiments.
+This repository contains a simple tool for generating synthetic data of
+multidimensional diffusion MRI experiments.
 
 Installation
 ############
