@@ -32,7 +32,6 @@ Use example
     >>> ax.set_xlabel('b (μm$^2$/ms)')
     >>> ax.set_ylabel('S/S$_0$')
     >>> fig.tight_layout()
-    >>> fig.savefig('example.png', dpi=200)
     >>> plt.show()
 
 .. image:: ./docs/static/example.png
