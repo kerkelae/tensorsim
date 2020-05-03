@@ -34,7 +34,7 @@ Use example
     >>> fig.tight_layout()
     >>> plt.show()
 
-.. image:: ./docs/static/example.png
+.. image:: ./docs/static/signal_decay_example.png
 
 Tests
 #####
