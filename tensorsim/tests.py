@@ -29,6 +29,10 @@ def test_align_v_with_k():
                                 np.linalg.norm(vs[i]))
         npt.assert_almost_equal(rotated_v / np.linalg.norm(rotated_v),
                                 ks[i] / np.linalg.norm(ks[i]))
+    v = np.array([1, 0, 0])
+    for k in np.array([[0, 0, 1], [-1, 0, 0], [1, 0, 0]]):
+        rotated_v = tensorsim.align_v_with_k(v, k)
+        npt.assert_array_almost_equal(rotated_v, k)
     return
 
 

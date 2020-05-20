@@ -51,14 +51,20 @@ def align_v_with_k(v, k):
     rotated_v : array_like
         Rotated vector.
     """
-    axis = np.cross(v, k)
-    axis /= np.linalg.norm(axis)
-    angle = np.arcsin(np.linalg.norm(np.cross(v, k)) /
-                      (np.linalg.norm(k) * np.linalg.norm(v)))
-    if np.dot(v, k) < 0:
-        angle = np.pi - angle
-    rotated_vector = rotate_v_about_k(v, axis, angle)
-    return rotated_vector
+    axis = np.cross(v, k).astype(float)
+    if np.linalg.norm(axis) < np.finfo(float).eps:
+        if np.linalg.norm(v - k) > np.linalg.norm(v):
+            return -v
+        else:
+            return v
+    else:
+        axis /= np.linalg.norm(axis)
+        angle = np.arcsin(np.linalg.norm(np.cross(v, k)) /
+                          (np.linalg.norm(k) * np.linalg.norm(v)))
+        if np.dot(v, k) < 0:
+            angle = np.pi - angle
+        rotated_vector = rotate_v_about_k(v, axis, angle)
+        return rotated_vector
 
 
 def rotate_tensor_about_k(tensor, k, angle):
@@ -122,8 +128,13 @@ def align_tensor_with_vector(tensor, v, n=1):
         raise ValueError('n has to be equal to 1, 2, or 3.')
     v = v / np.linalg.norm(v)
     axis = np.cross(principal_eigenvector, v)
-    if np.linalg.norm(axis) == 0:
-        return tensor
+    if np.linalg.norm(axis) < np.finfo(float).eps:
+        if (np.linalg.norm(principal_eigenvector - v)
+            > np.linalg.norm(principal_eigenvector)):
+            R = -np.eye(3)
+            return np.matmul(np.matmul(R, tensor), R.T)
+        else:
+            return tensor
     axis = axis / np.linalg.norm(axis)
     angle = np.arcsin(np.linalg.norm(np.cross(principal_eigenvector, v)))
     if np.dot(principal_eigenvector, v) < 0:
