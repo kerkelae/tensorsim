@@ -197,18 +197,19 @@ def generate_axisymmetric_tensor(FA, MD):
     A = 1 - 2 * FA**2
     B = -2 * y
     C = (1 - FA**2) * y**2
-    x1 = (-B + np.sqrt(B**2 - 4 * A * C)) / (2 * A)
+    #x1 = (-B + np.sqrt(B**2 - 4 * A * C)) / (2 * A)
     x2 = (-B - np.sqrt(B**2 - 4 * A * C)) / (2 * A)
-    tensor_1 = np.array([[y, 0, 0],
-                         [0, x1, 0],
-                         [0, 0, x1]])
+    #tensor_1 = np.array([[y, 0, 0],
+    #                     [0, x1, 0],
+    #                     [0, 0, x1]])
     tensor_2 = np.array([[y, 0, 0],
                          [0, x2, 0],
                          [0, 0, x2]])
-    if np.all(tensor_1 >= 0) and (calculate_FA(tensor_1) - FA) < 1e-5:
-        D = tensor_1
-    else:
-        D = tensor_2
+    #if np.all(tensor_1 >= 0) and (calculate_FA(tensor_1) - FA) < 1e-5:
+    #    D = tensor_1
+    #else:
+    #    D = tensor_2
+    D = tensor_2
     D /= np.trace(D)
     D *= MD * 3
     return D
